@@ -30,16 +30,23 @@ dependencies {
     implementation 'com.google.guava:guava:31.1-jre'
 
     implementation group: 'org.geotools', name: 'gt-shapefile', version: '25.0'
+    implementation group: 'org.geotools', name: 'gt-swing', version: '25.0'
+    implementation group: 'org.geotools', name: 'gt-epsg-hsql', version: '25.0'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    compileOnly 'org.projectlombok:lombok:1.18.24'
+    annotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.24'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
+
+    testImplementation 'org.mockito:mockito-core:4.1.0'
 }
 
-testing {
-    suites {
-        // Configure the built-in test suite
-        test {
-            // Use JUnit4 test framework
-            useJUnit('4.13.2')
-        }
-    }
+test {
+    useJUnitPlatform()
 }
 
 application {

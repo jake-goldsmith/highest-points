@@ -3,12 +3,29 @@
  */
 package highest.points;
 
+import org.geotools.feature.FeatureIterator;
+import org.opengis.feature.simple.SimpleFeature;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class App {
     public String getGreeting() {
         return "Hello World!";
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println(new App().getGreeting());
+
+        List<SimpleFeature> featureList =
+                new ShapeFileReader(new File("data" + File.separator + "Supplementary_Historical" + File.separator + "Boundary-line-historic-counties_region.shp"))
+                        .readFeaturesFromFile();
+
+
+        MapBuilder mapBuilder = new MapBuilder();
+        MapDisplay mapDisplay = new MapDisplay(mapBuilder, featureList);
+        mapDisplay.render();
     }
 }
