@@ -1,4 +1,4 @@
-package highest.points;
+package highest.points.map;
 
 import lombok.Builder;
 import org.geotools.coverage.grid.GridCoverage2D;

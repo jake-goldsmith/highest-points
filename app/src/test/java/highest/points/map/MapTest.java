@@ -1,4 +1,4 @@
-package highest.points;
+package highest.points.map;
 
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.swing.JMapFrame;
@@ -9,8 +9,8 @@ import org.opengis.feature.simple.SimpleFeature;
 import java.io.IOException;
 import java.util.List;
 
-import static highest.points.TestDataUtil.testGridCoverageDataUtil;
-import static highest.points.TestDataUtil.testShapeDataUtil;
+import static highest.points.io.TestDataUtil.testGridCoverageDataUtil;
+import static highest.points.io.TestDataUtil.testShapeDataUtil;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class MapTest {

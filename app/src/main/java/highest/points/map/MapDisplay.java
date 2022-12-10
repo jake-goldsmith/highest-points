@@ -1,13 +1,9 @@
-package highest.points;
+package highest.points.map;
 
 import lombok.RequiredArgsConstructor;
-import org.eclipse.xsd.ecore.MapBuilder;
-import org.geotools.coverage.grid.GridCoverage2D;
 import org.geotools.swing.JMapFrame;
-import org.opengis.feature.simple.SimpleFeature;
 
 import javax.swing.*;
-import java.util.List;
 
 @RequiredArgsConstructor
 public class MapDisplay {

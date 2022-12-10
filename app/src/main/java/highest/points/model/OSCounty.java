@@ -1,4 +1,4 @@
-package highest.points;
+package highest.points.model;
 
 import org.locationtech.jts.geom.Geometry;
 import org.opengis.feature.simple.SimpleFeature;

@@ -3,6 +3,12 @@
  */
 package highest.points;
 
+import highest.points.io.FileFinder;
+import highest.points.io.ShapeFileReader;
+import highest.points.map.Map;
+import highest.points.map.MapDisplay;
+import highest.points.model.OSCounty;
+import highest.points.model.OSPointWithHeight;
 import org.opengis.feature.simple.SimpleFeature;
 
 import java.io.File;
@@ -64,7 +70,7 @@ public class App {
         List<SimpleFeature> highPoints = counties.stream().map(heights::getMaxHeightPoint).filter(Objects::nonNull).map(OSPointWithHeight::getFeature).toList();
         List<SimpleFeature> countyFeatures = counties.stream().map(OSCounty::getFeature).toList();
 
-        Map map = Map.builder().features(countyFeatures).points(highPoints).build();
+        highest.points.map.Map map = Map.builder().features(countyFeatures).points(highPoints).build();
 
         MapDisplay mapDisplay = new MapDisplay();
         mapDisplay.render(map);

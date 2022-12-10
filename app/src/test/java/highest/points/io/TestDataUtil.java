@@ -1,5 +1,7 @@
-package highest.points;
+package highest.points.io;
 
+import highest.points.io.CoverageFileReader;
+import highest.points.io.ShapeFileReader;
 import org.geotools.coverage.grid.GridCoverage2D;
 import org.opengis.feature.simple.SimpleFeature;
 

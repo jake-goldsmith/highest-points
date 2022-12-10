@@ -1,5 +1,7 @@
-package highest.points;
+package highest.points.map;
 
+import highest.points.map.Map;
+import highest.points.map.MapDisplay;
 import org.geotools.swing.JMapFrame;
 
 import org.junit.jupiter.api.BeforeEach;

@@ -1,5 +1,6 @@
-package highest.points;
+package highest.points.io;
 
+import highest.points.io.ShapeFileReader;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.opengis.feature.simple.SimpleFeature;

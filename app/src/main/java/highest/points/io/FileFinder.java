@@ -1,4 +1,4 @@
-package highest.points;
+package highest.points.io;
 
 import lombok.AllArgsConstructor;
 

@@ -1,4 +1,4 @@
-package highest.points;
+package highest.points.io;
 
 import org.geotools.data.DataStore;
 import org.geotools.data.DataStoreFinder;

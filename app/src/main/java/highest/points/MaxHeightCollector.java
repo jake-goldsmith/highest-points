@@ -1,5 +1,8 @@
 package highest.points;
 
+import highest.points.model.OSCounty;
+import highest.points.model.OSPointWithHeight;
+
 import java.util.HashMap;
 import java.util.Map;
 

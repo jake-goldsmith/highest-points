@@ -1,5 +1,7 @@
 package highest.points;
 
+import highest.points.model.OSCounty;
+import highest.points.model.OSPointWithHeight;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
