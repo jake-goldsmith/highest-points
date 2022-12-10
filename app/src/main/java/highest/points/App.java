@@ -3,29 +3,70 @@
  */
 package highest.points;
 
-import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.simple.SimpleFeature;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class App {
-    public String getGreeting() {
-        return "Hello World!";
-    }
 
     public static void main(String[] args) throws IOException {
-        System.out.println(new App().getGreeting());
+        List<OSCounty> counties = new ArrayList<>();
 
-        List<SimpleFeature> featureList =
-                new ShapeFileReader(new File("data" + File.separator + "Supplementary_Historical" + File.separator + "Boundary-line-historic-counties_region.shp"))
-                        .readFeaturesFromFile();
+        try (ShapeFileReader reader = new ShapeFileReader(new File("data" + File.separator + "Supplementary_Historical" + File.separator + "Boundary-line-historic-counties_region.shp"))) {
+            reader.readFeaturesFromFile()
+                    .stream()
+                    .map(OSCounty::new)
+                    .forEach(counties::add);
+        }
 
 
-        MapBuilder mapBuilder = new MapBuilder();
-        MapDisplay mapDisplay = new MapDisplay(mapBuilder, featureList);
-        mapDisplay.render();
+        List<File> heightFiles = new FileFinder(new File("data" + File.separator + "terr50_cesh_gb" + File.separator + "data"))
+                .findFilesRecursively("point.shp");
+
+        List<OSPointWithHeight> points =
+                new ArrayList<>(heightFiles.stream()
+                        .map(file -> {
+                            try (ShapeFileReader reader = new ShapeFileReader(file)) {
+                                return reader.readFeaturesFromFile();
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
+                        })
+                        .flatMap(List::stream)
+                        .map(point -> {
+                            OSPointWithHeight osPointWithHeight;
+                            try {
+                                osPointWithHeight = new OSPointWithHeight(point);
+                            } catch (ClassCastException e) {
+                                osPointWithHeight = null;
+                            }
+                            return Optional.ofNullable(osPointWithHeight);
+                        })
+                        .filter(Optional::isPresent)
+                        .map(Optional::get)
+                        .toList());
+
+
+        Collections.shuffle(points);
+
+        MaxHeightCollector heights = new MaxHeightCollector();
+
+        for (OSPointWithHeight point : points) {
+            for (OSCounty county : counties) {
+                if (heights.couldPointBeHigher(point, county) && county.getGeometry().intersects(point.getGeometry())) {
+                    heights.addPoint(county, point);
+                }
+            }
+        }
+
+        List<SimpleFeature> highPoints = counties.stream().map(heights::getMaxHeightPoint).filter(Objects::nonNull).map(OSPointWithHeight::getFeature).toList();
+        List<SimpleFeature> countyFeatures = counties.stream().map(OSCounty::getFeature).toList();
+
+        Map map = Map.builder().features(countyFeatures).points(highPoints).build();
+
+        MapDisplay mapDisplay = new MapDisplay();
+        mapDisplay.render(map);
     }
 }

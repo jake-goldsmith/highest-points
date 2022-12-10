@@ -29,3 +29,7 @@ hs_err_pid*
 build
 
 Supplementary_Historical
+terr50_cesh_gb
+data/terr50_gb.gpkg
+
+*.bat

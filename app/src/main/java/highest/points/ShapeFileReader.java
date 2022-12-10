@@ -1,6 +1,5 @@
 package highest.points;
 
-import lombok.AllArgsConstructor;
 import org.geotools.data.DataStore;
 import org.geotools.data.DataStoreFinder;
 import org.geotools.data.FeatureSource;
@@ -12,15 +11,17 @@ import org.opengis.feature.simple.SimpleFeatureType;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.Map;
 
-@AllArgsConstructor
-public class ShapeFileReader {
+public class ShapeFileReader implements AutoCloseable {
 
-    private File file;
+    private final File file;
+    private DataStore dataStore;
+
+    public ShapeFileReader(File file) {
+        this.file = file;
+    }
 
     private Map<String, Object> buildDataStoreMap() throws MalformedURLException {
         Map<String, Object> map = new HashMap<>();
@@ -30,7 +31,7 @@ public class ShapeFileReader {
 
     private FeatureCollection<SimpleFeatureType, SimpleFeature> readFile() throws IOException {
         // Following tutorial from https://docs.geotools.org/stable/userguide/library/data/shape.html
-        DataStore dataStore = DataStoreFinder.getDataStore(buildDataStoreMap());
+        dataStore = DataStoreFinder.getDataStore(buildDataStoreMap());
 
         String typeName = dataStore.getTypeNames()[0];
 
@@ -43,12 +44,18 @@ public class ShapeFileReader {
     public List<SimpleFeature> readFeaturesFromFile() throws IOException {
         List<SimpleFeature> featureList = new ArrayList<>();
         // TODO - Steam the data in rather than collecting a list
-        FeatureIterator<SimpleFeature> features = readFile().features();
+        try (FeatureIterator<SimpleFeature> features = readFile().features()) {
             while (features.hasNext()) {
                 featureList.add(features.next());
             }
-
-
+        }
         return featureList;
+    }
+
+    @Override
+    public void close() {
+        if (Objects.nonNull(dataStore)) {
+            dataStore.dispose();
+        }
     }
 }

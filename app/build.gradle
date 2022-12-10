@@ -29,9 +29,11 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.1-jre'
 
-    implementation group: 'org.geotools', name: 'gt-shapefile', version: '25.0'
-    implementation group: 'org.geotools', name: 'gt-swing', version: '25.0'
-    implementation group: 'org.geotools', name: 'gt-epsg-hsql', version: '25.0'
+    implementation group: 'org.geotools', name: 'gt-shapefile', version: '28.0'
+    implementation group: 'org.geotools', name: 'gt-swing', version: '28.0'
+    implementation group: 'org.geotools', name: 'gt-epsg-hsql', version: '28.0'
+    implementation group: 'org.geotools', name: 'gt-image', version: '28.0'
+    implementation group: 'org.geotools', name: 'gt-geopkg', version: '28.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
@@ -42,7 +44,7 @@ dependencies {
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
 
-    testImplementation 'org.mockito:mockito-core:4.1.0'
+    testImplementation 'org.mockito:mockito-junit-jupiter:4.6.1'
 }
 
 test {
