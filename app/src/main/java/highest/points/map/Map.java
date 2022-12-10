@@ -28,7 +28,7 @@ public class Map {
     @Builder.Default
     private List<SimpleFeature> points = null;
 
-    public static Style DEFAULT_POLYGON_STYLE = SLD.createPolygonStyle(Color.green, Color.CYAN, 1.0f);
+    public static Style DEFAULT_POLYGON_STYLE = SLD.createPolygonStyle(Color.lightGray, Color.getHSBColor(0.167f, 0.3f, 1.0f), 1.0f);
     public static Style DEFAULT_COVERAGE_STYLE = SLD.wrapSymbolizers(CommonFactoryFinder.getStyleFactory().getDefaultRasterSymbolizer());
     public static Style DEFAULT_POINT_STYLE = SLD.createPointStyle("circle", Color.RED, Color.RED, 1.0f, 5.0f, "FEAT_TYPE", new StyleBuilder().createFont("sans-serif", 15.0f));
 
