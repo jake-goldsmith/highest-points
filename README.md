@@ -27,6 +27,7 @@ Contains OS data © Crown copyright and database right 2022. This information is
     * Next steps: either use the contour data or grid coverage of heights to find the missing high points.
 * Carnarvonshire has multiple high points on each of its islands.
     * Next steps: handle disjoint counties correctly using a unique county identifier to record their max height point.
+* Some labels are not displayed on the map if they are too close to other high points. Generally it is possible to zoom in, and they will become visible.
 
 ## How to set up the Ordnance Survey Dataset for Great Britain?
 
